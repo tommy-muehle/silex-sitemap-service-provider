@@ -1,0 +1,35 @@
+{
+  "name": "tm/silex-sitemap-service-provider",
+  "description": "Simple service provider to generate a xml-sitemap.",
+  "keywords": [
+    "silex",
+    "sitemap",
+    "xml"
+  ],
+  "authors": [
+    {
+      "name": "Tommy Muehle",
+      "email": "tommy.muehle@gmail.com",
+      "homepage": "https://tommy-muehle.de"
+    }
+  ],
+  "license": "MIT",
+  "require": {
+    "php": ">=5.4.0"
+  },
+  "require-dev": {
+    "behat/behat": "3.0.14",
+    "phpunit/phpunit": "4.4.0",
+    "silex/silex": "1.2.1"
+  },
+  "version": "1.0.0",
+  "support": {
+    "email": "tommy.muehle@gmail.com"
+  },
+  "type": "library",
+  "autoload": {
+    "psr-0": {
+      "TM": "src"
+    }
+  }
+}
