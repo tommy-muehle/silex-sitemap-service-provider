@@ -1,0 +1,2 @@
+silex-sitemap-service-provider
+==============================
