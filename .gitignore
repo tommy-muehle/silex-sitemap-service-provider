@@ -1,0 +1,4 @@
+composer.lock
+atlassian-ide-plugin.xml
+.idea/
+vendor/
