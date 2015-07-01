@@ -25,8 +25,8 @@ Then implement the route for the sitemap.xml with your custom logic:
       $entities = $app['repository.entity']->findAll(50000);
   
       foreach ($entities as $entity) {
-        $entitytLoc = $app['url_generator']->generate('entity', array('entity' => $entity->getId()));
-        $sitemap->addEntry($host . $entitytLoc, 0.8, 'monthly', $entity->getLastModified());
+        $entityLoc = $app['url_generator']->generate('entity', array('entity' => $entity->getId()));
+        $sitemap->addEntry($host . $entityLoc, 0.8, 'monthly', $entity->getLastModified());
       }
   
       return $sitemap->generate();
