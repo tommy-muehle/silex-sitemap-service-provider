@@ -15,21 +15,23 @@
   ],
   "license": "MIT",
   "require": {
-    "php": ">=5.4.0"
+    "php": ">=5.4.0",
+    "silex/silex": "~1.2"
   },
   "require-dev": {
     "behat/behat": "3.0.14",
-    "phpunit/phpunit": "4.4.0",
-    "silex/silex": "1.2.1"
+    "phpunit/phpunit": "@stable"
   },
-  "version": "1.0.0",
   "support": {
-    "email": "tommy.muehle@gmail.com"
+    "email": "tommy.muehle@gmail.com",
+    "issues": "https://github.com/tommy-muehle/silex-sitemap-service-provider/issues",
+    "docs": "https://github.com/tommy-muehle/silex-sitemap-service-provider/blob/master/README.md",
+    "source": "https://github.com/tommy-muehle/silex-sitemap-service-provider/tree/master"
   },
   "type": "library",
   "autoload": {
-    "psr-0": {
-      "TM": "src"
+    "psr-4": {
+      "TM\\": "src/"
     }
   }
 }
