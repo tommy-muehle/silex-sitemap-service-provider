@@ -3,6 +3,7 @@ silex-sitemap-service-provider
 [![Build Status](https://travis-ci.org/tommy-muehle/silex-sitemap-service-provider.svg?branch=master)](https://travis-ci.org/tommy-muehle/silex-sitemap-service-provider)
 [![Latest Stable Version](https://poser.pugx.org/tm/silex-sitemap-service-provider/v/stable)](https://packagist.org/packages/tm/silex-sitemap-service-provider)
 [![License](https://poser.pugx.org/tm/silex-sitemap-service-provider/license)](https://packagist.org/packages/tm/silex-sitemap-service-provider)
+[![Issues](https://img.shields.io/github/issues/tommy-muehle/silex-sitemap-service-provider.svg)](https://github.com/tommy-muehle/silex-sitemap-service-provider/issues)
 [![Total Downloads](https://poser.pugx.org/tm/silex-sitemap-service-provider/downloads)](https://packagist.org/packages/tm/silex-sitemap-service-provider)
 
 ###Installation
