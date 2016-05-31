@@ -6,15 +6,26 @@ silex-sitemap-service-provider
 [![Issues](https://img.shields.io/github/issues/tommy-muehle/silex-sitemap-service-provider.svg)](https://github.com/tommy-muehle/silex-sitemap-service-provider/issues)
 [![Total Downloads](https://poser.pugx.org/tm/silex-sitemap-service-provider/downloads)](https://packagist.org/packages/tm/silex-sitemap-service-provider)
 
-###Installation
+### Installation
 
 composer require tm/silex-sitemap-service-provider
 
-###Example Basic Usage
+### Example Basic Usage
 
 First you have to register the ServiceProvider:
 ```php
     $app->register(new TM\Provider\SitemapServiceProvider());
+```
+
+Optional you can also set some options for the generator:
+```php
+    $app->register(new TM\Provider\SitemapServiceProvider(), [
+        'sitemap.options' => [
+            'charset' => 'ISO-8859-1',
+            'version' => '1.0',
+            'scheme' => 'http://www.sitemaps.org/schemas/sitemap/0.8'
+        ]
+    ]);
 ```
 
 Then implement the route for the sitemap.xml with your custom logic:
@@ -38,6 +49,15 @@ Then implement the route for the sitemap.xml with your custom logic:
     ->bind('sitemap');
 ```
 
-###Contributing
+### Contributing
 
 Please refer to [CONTRIBUTING.md](CONTRIBUTING.md) for information on how to contribute.
+
+### Development
+
+Run tests with the following command in the project directory.
+
+```
+composer install
+./vendor/bin/behat 
+```
