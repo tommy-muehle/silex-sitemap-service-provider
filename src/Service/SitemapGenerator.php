@@ -3,8 +3,6 @@
 namespace TM\Service;
 
 /**
- * Class SitemapGenerator
- *
  * @package TM\Service
  */
 class SitemapGenerator
@@ -12,25 +10,24 @@ class SitemapGenerator
     /**
      * @var \XMLWriter
      */
-    protected $map;
+    protected $sitemap;
 
     /**
-     * @var string
+     * @param \XMLWriter $xmlWriter
+     * @param string     $version
+     * @param string     $charset
+     * @param string     $scheme
      */
-    protected $scheme = 'http://www.sitemaps.org/schemas/sitemap/0.9';
-
-    /**
-     * Constructor
-     */
-    public function __construct()
+    public function __construct(\XMLWriter $xmlWriter, $version = '1.0', $charset = 'utf-8', $scheme = 'http://www.sitemaps.org/schemas/sitemap/0.9')
     {
-        $this->map = new \XMLWriter();
+        $this->sitemap = $xmlWriter;
+        $this->sitemap->openMemory();
 
-        $this->map->openMemory();
-        $this->map->startDocument('1.0', 'utf-8');
-        $this->map->setIndent(true);
+        $this->sitemap->startDocument($version, $charset);
+        $this->sitemap->setIndent(true);
 
-        $this->startSitemap();
+        $this->sitemap->startElement('urlset');
+        $this->sitemap->writeAttribute('xmlns', $scheme);
     }
 
     /**
@@ -41,46 +38,29 @@ class SitemapGenerator
      */
     public function addEntry($url, $priority = 1.0, $changefreq = 'yearly', \DateTime $lastmod = null)
     {
-        $this->map->startElement('url');
+        $this->sitemap->startElement('url');
 
-        $this->map->writeElement('loc', $url);
-        $this->map->writeElement('priority', $priority);
-        $this->map->writeElement('changefreq', $changefreq);
+        $this->sitemap->writeElement('loc', $url);
+        $this->sitemap->writeElement('priority', $priority);
+        $this->sitemap->writeElement('changefreq', $changefreq);
 
-        if (false === is_null($lastmod)) {
-            $this->map->writeElement('lastmod', $lastmod->format('Y-m-d'));
+        if ($lastmod instanceof \DateTime) {
+            $this->sitemap->writeElement('lastmod', $lastmod->format('Y-m-d'));
         }
 
-        $this->map->endElement();
+        $this->sitemap->endElement();
     }
 
     /**
-     * @param bool $flush
+     * @param bool $doFlush
      *
      * @return string
      */
-    public function generate($flush = true)
+    public function generate($doFlush = true)
     {
-        $this->endSitemap();
+        $this->sitemap->endElement();
+        $this->sitemap->endDocument();
 
-        return $this->map->outputMemory($flush);
-    }
-
-    /**
-     * @return void
-     */
-    protected function startSitemap()
-    {
-        $this->map->startElement('urlset');
-        $this->map->writeAttribute('xmlns', $this->scheme);
-    }
-
-    /**
-     * @return void
-     */
-    protected function endSitemap()
-    {
-        $this->map->endElement();
-        $this->map->endDocument();
+        return $this->sitemap->outputMemory($doFlush);
     }
 }

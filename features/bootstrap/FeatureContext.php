@@ -6,6 +6,7 @@ use Behat\Behat\Context\Context;
 use Behat\Behat\Context\SnippetAcceptingContext;
 use Behat\Gherkin\Node\PyStringNode;
 use Silex\Application;
+use TM\Provider\SitemapServiceProvider;
 
 /**
  * Defines application features from the specific context.
@@ -15,21 +16,15 @@ class FeatureContext implements Context, SnippetAcceptingContext
     /**
      * @var Silex\Application
      */
-    protected $app;
+    private $app;
 
     /**
-     * Initializes context.
+     * @Given Service with charset :charset, version :version and scheme :scheme is available
      */
-    public function __construct()
+    public function isServiceAvailable($charset, $version, $scheme)
     {
-        $this->app = require __DIR__ . '/bootstrap.php';
-    }
+        $this->app = $this->generateApplication($charset, $version, $scheme);
 
-    /**
-     * @Given Service is available
-     */
-    public function isServiceAvailable()
-    {
         PHPUnit_Framework_Assert::assertArrayHasKey('sitemap', $this->app);
     }
 
@@ -84,5 +79,27 @@ class FeatureContext implements Context, SnippetAcceptingContext
             default:
                 $this->app['sitemap']->addEntry($url);
         }
+    }
+
+    /**
+     * @param string $charset
+     * @param string $version
+     * @param string $scheme
+     */
+    private function generateApplication($charset, $version, $scheme)
+    {
+        $options = [
+            'debug' => true,
+            'sitemap.options' => [
+                'charset' => $charset,
+                'version' => $version,
+                'scheme' => $scheme,
+            ]
+        ];
+
+        $app = new Application($options);
+        $app->register(new SitemapServiceProvider);
+
+        return $app;
     }
 }
