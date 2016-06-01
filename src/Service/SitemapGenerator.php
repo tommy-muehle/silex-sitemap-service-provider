@@ -12,12 +12,12 @@ class SitemapGenerator
     /**
      * @var \XMLWriter
      */
-    private $map;
+    protected $map;
 
     /**
      * @var string
      */
-    private $scheme = 'http://www.sitemaps.org/schemas/sitemap/0.9';
+    protected $scheme = 'http://www.sitemaps.org/schemas/sitemap/0.9';
 
     /**
      * Constructor
