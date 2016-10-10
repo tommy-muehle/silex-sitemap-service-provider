@@ -7,6 +7,7 @@ use Behat\Behat\Context\SnippetAcceptingContext;
 use Behat\Gherkin\Node\PyStringNode;
 use Silex\Application;
 use TM\Provider\SitemapServiceProvider;
+use Assert\Assertion;
 
 /**
  * Defines application features from the specific context.
@@ -25,7 +26,7 @@ class FeatureContext implements Context, SnippetAcceptingContext
     {
         $this->app = $this->generateApplication($charset, $version, $scheme);
 
-        PHPUnit_Framework_Assert::assertArrayHasKey('sitemap', $this->app);
+        Assertion::keyIsset($this->app, 'sitemap');
     }
 
     /**
@@ -35,10 +36,7 @@ class FeatureContext implements Context, SnippetAcceptingContext
     {
         $sitemap = $this->app['sitemap']->generate(false);
 
-        PHPUnit_Framework_Assert::assertNotRegExp(
-            '/\<url\>/',
-            $sitemap
-        );
+        Assertion::eq(0, preg_match('/\<url\>/', $sitemap));
     }
 
     /**
@@ -50,7 +48,7 @@ class FeatureContext implements Context, SnippetAcceptingContext
     {
         $sitemap = $this->app['sitemap']->generate(false);
 
-        PHPUnit_Framework_Assert::assertEquals(
+        Assertion::eq(
             preg_replace('/(\s\s+|\t|\n)/', '', $string->getRaw()),
             preg_replace('/(\s\s+|\t|\n)/', '', $sitemap)
         );
