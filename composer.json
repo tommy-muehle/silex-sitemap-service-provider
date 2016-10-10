@@ -19,8 +19,8 @@
     "silex/silex": "^1.0"
   },
   "require-dev": {
-    "behat/behat": "^3.0",
-    "phpunit/phpunit": "@stable"
+    "beberlei/assert": "^2.0",
+    "tm/tooly-composer-script": "^1.0"
   },
   "support": {
     "email": "tommy.muehle@gmail.com",
@@ -32,6 +32,22 @@
   "autoload": {
     "psr-4": {
       "TM\\": "src/"
+    }
+  },
+  "config": {
+    "bin-dir": "bin",
+    "sort-packages": true,
+    "optimize-autoloader": true
+  },
+  "scripts": {
+    "post-install-cmd": "Tooly\\ScriptHandler::installPharTools",
+    "post-update-cmd": "Tooly\\ScriptHandler::installPharTools"
+  },
+  "extra": {
+    "tools": {
+      "behat": {
+        "url": "https://github.com/Behat/Behat/releases/download/v3.2.1/behat.phar"
+      }
     }
   }
 }
