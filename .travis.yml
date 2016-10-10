@@ -21,6 +21,6 @@ before_install:
 install:
   - composer update --no-interaction --prefer-source
 script:
-  - ./vendor/bin/behat
+  - ./bin/behat.phar
 notifications:
   email: false
