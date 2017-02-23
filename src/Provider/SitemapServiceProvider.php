@@ -2,24 +2,16 @@
 
 namespace TM\Provider;
 
-use Silex\Application;
-use Silex\ServiceProviderInterface;
+use Pimple\Container;
+use Pimple\ServiceProviderInterface;
 use TM\Service\SitemapGenerator;
 
-/**
- * @package TM\Provider
- */
 class SitemapServiceProvider implements ServiceProviderInterface
 {
     /**
-     * Registers services on the given app.
-     *
-     * This method should only be used to configure services and parameters.
-     * It should not get services.
-     *
-     * @param Application $app An Application instance
+     * @param Container $app
      */
-    public function register(Application $app)
+    public function register(Container $app)
     {
         $options = [
             'xml_writer' => new \XMLWriter,
@@ -32,23 +24,10 @@ class SitemapServiceProvider implements ServiceProviderInterface
             $options = array_merge($options, $app['sitemap.options']);
         }
 
-        $app['sitemap'] = $app->share(function () use ($options) {
+        $app['sitemap'] = function () use ($options) {
             return new SitemapGenerator(
                 $options['xml_writer'], $options['version'], $options['charset'], $options['scheme']
             );
-        });
-    }
-
-    /**
-     * Bootstraps the application.
-     *
-     * This method is called after all services are registered
-     * and should be used for "dynamic" configuration (whenever
-     * a service must be requested).
-     *
-     * @param Application $app An Application instance
-     */
-    public function boot(Application $app)
-    {
+        };
     }
 }
