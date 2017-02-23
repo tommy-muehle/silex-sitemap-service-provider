@@ -2,9 +2,6 @@
 
 namespace TM\Service;
 
-/**
- * @package TM\Service
- */
 class SitemapGenerator
 {
     /**
