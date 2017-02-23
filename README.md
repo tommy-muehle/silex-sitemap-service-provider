@@ -6,9 +6,21 @@ silex-sitemap-service-provider
 [![Issues](https://img.shields.io/github/issues/tommy-muehle/silex-sitemap-service-provider.svg)](https://github.com/tommy-muehle/silex-sitemap-service-provider/issues)
 [![Total Downloads](https://poser.pugx.org/tm/silex-sitemap-service-provider/downloads)](https://packagist.org/packages/tm/silex-sitemap-service-provider)
 
+The provider supports both major Versions of [Silex](http://silex.sensiolabs.org/).
+
 ### Installation
 
-composer require tm/silex-sitemap-service-provider
+For applications based on Silex >= 2.0.0:
+
+```
+composer require tm/silex-sitemap-service-provider ^4.0
+```
+
+If you use Silex 1.3.x or lower in your application:
+
+```
+composer require tm/silex-sitemap-service-provider ^3.0
+```
 
 ### Example Basic Usage
 
