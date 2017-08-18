@@ -80,11 +80,12 @@ Feature: Service works expected
     """
 
   Scenario:
-    Given Service with charset "ISO-8859-1", version "1.1" and scheme "http://www.sitemaps.org/schemas/sitemap/0.8" is available
+    Given Service with charset "UTF-8", version "1.1", start "0" and scheme "http://www.sitemaps.org/schemas/sitemap/0.8" is available
+    Given I starting a sitemapindex Element
     When I add a sitemap "https://github.com/tommy-muehle/silex-sitemap-service-provider" with parameter "lastmod" and value "2016-05-30"
     Then It should pass with:
     """
-    <?xml version="1.1" encoding="ISO-8859-1"?>
+    <?xml version="1.1" encoding="UTF-8"?>
     <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.8">
       <sitemap>
         <loc>https://github.com/tommy-muehle/silex-sitemap-service-provider</loc>

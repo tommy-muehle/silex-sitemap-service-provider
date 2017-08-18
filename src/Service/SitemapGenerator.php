@@ -10,6 +10,11 @@ class SitemapGenerator
     protected $sitemap;
 
     /**
+     * @var string scheme
+     */
+    protected $scheme;
+
+    /**
      * @param \XMLWriter $xmlWriter
      * @param string     $version
      * @param string     $charset
@@ -25,8 +30,9 @@ class SitemapGenerator
 
         if ($start) {
             $this->sitemap->startElement('urlset');
+            $this->sitemap->writeAttribute('xmlns', $scheme);
         }
-        $this->sitemap->writeAttribute('xmlns', $scheme);
+        $this->scheme = $scheme;
     }
 
     /**
@@ -44,6 +50,7 @@ class SitemapGenerator
                 $this->sitemap->startElement('urlset');
                 break;
         }
+        $this->sitemap->writeAttribute('xmlns', $this->scheme);
 
         return $this;
     }

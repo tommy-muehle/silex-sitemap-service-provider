@@ -30,6 +30,19 @@ class FeatureContext implements Context, SnippetAcceptingContext
     }
 
     /**
+     * @Given Service with charset :charset, version :version, start :start and scheme :scheme is available
+     */
+    public function isManualServiceAvailable($charset, $version, $start, $scheme)
+    {
+        if ($start === 0) {
+            $start = false;
+        }
+        $this->app = $this->generateApplication($charset, $version, $scheme, $start);
+
+        Assertion::keyIsset($this->app, 'sitemap');
+    }
+
+    /**
      * @Given No entry was set
      */
     public function noEntryExists()
@@ -37,6 +50,18 @@ class FeatureContext implements Context, SnippetAcceptingContext
         $sitemap = $this->app['sitemap']->generate(false);
 
         Assertion::eq(0, preg_match('/\<url\>/', $sitemap));
+    }
+
+    /**
+     * @param string $url
+     * @param string $name
+     * @param mixed  $value
+     *
+     * @Given I starting a :element Element
+     */
+    public function startElement($element)
+    {
+        $this->app['sitemap']->startElement($element);
     }
 
     /**
@@ -105,7 +130,7 @@ class FeatureContext implements Context, SnippetAcceptingContext
      * @param string $version
      * @param string $scheme
      */
-    private function generateApplication($charset, $version, $scheme)
+    private function generateApplication($charset, $version, $scheme, $start = true)
     {
         $options = [
             'debug' => true,
@@ -113,6 +138,7 @@ class FeatureContext implements Context, SnippetAcceptingContext
                 'charset' => $charset,
                 'version' => $version,
                 'scheme' => $scheme,
+                'start' => $start,
             ]
         ];
 
