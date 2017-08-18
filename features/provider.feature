@@ -78,3 +78,18 @@ Feature: Service works expected
       </url>
     </urlset>
     """
+
+  Scenario:
+    Given Service with charset "UTF-8", version "1.1", start "0" and scheme "http://www.sitemaps.org/schemas/sitemap/0.8" is available
+    Given I starting a sitemapindex Element
+    When I add a sitemap "https://github.com/tommy-muehle/silex-sitemap-service-provider" with parameter "lastmod" and value "2016-05-30"
+    Then It should pass with:
+    """
+    <?xml version="1.1" encoding="UTF-8"?>
+    <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.8">
+      <sitemap>
+        <loc>https://github.com/tommy-muehle/silex-sitemap-service-provider</loc>
+        <lastmod>2016-05-30</lastmod>
+      </sitemap>
+    </sitemapindex>
+    """
