@@ -18,6 +18,7 @@ class SitemapServiceProvider implements ServiceProviderInterface
             'version' => '1.0',
             'charset' => 'utf-8',
             'scheme' => 'http://www.sitemaps.org/schemas/sitemap/0.9',
+            'start' => true
         ];
 
         if (isset($app['sitemap.options']) && is_array($app['sitemap.options'])) {
@@ -26,7 +27,7 @@ class SitemapServiceProvider implements ServiceProviderInterface
 
         $app['sitemap'] = function () use ($options) {
             return new SitemapGenerator(
-                $options['xml_writer'], $options['version'], $options['charset'], $options['scheme']
+                $options['xml_writer'], $options['version'], $options['charset'], $options['scheme'], $options['start']
             );
         };
     }

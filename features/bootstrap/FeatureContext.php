@@ -80,6 +80,27 @@ class FeatureContext implements Context, SnippetAcceptingContext
     }
 
     /**
+     * @param string $url
+     * @param string $name
+     * @param mixed  $value
+     *
+     * @When I add a sitemap :url with parameter :name and value :value
+     */
+    public function addSitemap($url, $name = null, $value = null)
+    {
+        switch ($name)
+        {
+            case 'lastmod':
+                $datetime = new \DateTime($value);
+                $this->app['sitemap']->addSitemap($url, $datetime);
+                break;
+
+            default:
+                $this->app['sitemap']->addSitemap($url);
+        }
+    }
+
+    /**
      * @param string $charset
      * @param string $version
      * @param string $scheme

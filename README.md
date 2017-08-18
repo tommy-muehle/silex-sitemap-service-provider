@@ -61,6 +61,35 @@ Then implement the route for the sitemap.xml with your custom logic:
     ->bind('sitemap');
 ```
 
+You can implement a sitemapindex with the option "start" and the following example:
+```php
+    $app->register(new TM\Provider\SitemapServiceProvider(), [
+        'sitemap.options' => [
+            'charset' => 'ISO-8859-1',
+            'version' => '1.0',
+            'scheme' => 'http://www.sitemaps.org/schemas/sitemap/0.8',
+            'start' => false
+        ]
+    ]);
+
+    ...
+
+    $app->get('sitemap.xml', function () use ($app) {
+  
+      $host = $app['request']->getSchemeAndHttpHost();
+      
+      $sitemap = $app['sitemap'];
+      $sitemap
+        ->startElement('sitemapindex')
+        ->addSitemap($host . '/firstsitemap.xml')
+        ->addSitemap($host . '/secondsitemap.xml', new \DateTime("yesterday"))
+      ;
+  
+      return $sitemap->generate();
+    })
+    ->bind('sitemap');
+```
+
 ### Contributing
 
 Please refer to [CONTRIBUTING.md](CONTRIBUTING.md) for information on how to contribute.
